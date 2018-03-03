@@ -1,0 +1,58 @@
+{
+	"user":"osmandi",
+	"lesson": "https://platzi.com/clases/scikit/concepto/montar-un-ambiente-de-trabajo-pydata/construir-nuestra-imagen-e-instanciar-un-contene-4/material/",
+	"comment":"hola compañeros! en la sección de tutoriales subí uno donde explico la instalación del entorno para este curso (con los errores ya arreglados y todo), para aquellos que tengan problemas con la instalación. https://platzi.com/scikit/tutoriales/instalacion-del-entorno-arara-docker-stacks/ Puedes ayudarme dándole “manito arriba” a este aporte para que esté  entre los primeros comentarios de esta clase y los que estén tomando el curso lo encuentren con facilidad."
+}
+{
+	"user":"GOLLUM23",
+	"lesson": "https://platzi.com/clases/scikit/concepto/montar-un-ambiente-de-trabajo-pydata/construir-nuestra-imagen-e-instanciar-un-contene-4/material/",
+	"comment":"nuestro compañero @osmandi creo un repo con la solución al problema de creación de la imagen que tenemos varios de nosotros, se trata de un problema con la librería ipywidgets la cual se mueve de environment.yaml a requirements.txt. Dejo el enlace del repo, siguen los pasos tal cual se hace en el video solo que con el repo del compañero osmandi https://github.com/osmandi/arara-docker-stacks/blob/master/ararads-base/requirementS.txt"
+}
+{
+	"user": "rubenmonsalve",
+	"lesson": "https://platzi.com/clases/scikit/concepto/montar-un-ambiente-de-trabajo-pydata/construir-nuestra-imagen-e-instanciar-un-contene-4/material/",
+	"comment": "cuando corro el comando: docker build -t ararads-base:1.0 . llega a un punto y me sale este error alguien me puede ayudar? LinkError: Link error: Error: post-link failed for: conda-forge::widgetsnbextension-1.2.6-py35_3",
+	"replies": [
+		{
+			"user": "GOLLUM23",
+			"comment": "Al parece tienes conda instalado, prueba a actualizar todas las librerías de conda. conda update nb_conda nb_conda_kernels nb_anacondacloud"
+		},
+		{
+			"user": "josearias210",
+			"comment": "Pudiste arreglar este problema?"
+		}
+	]
+}
+{
+	"user":"bautimoran",
+	"lesson": "https://platzi.com/clases/scikit/concepto/montar-un-ambiente-de-trabajo-pydata/construir-nuestra-imagen-e-instanciar-un-contene-4/material/",
+	"comment": "Tengo un error al correr el comando docker run -ti --name ambiente-ml -v ~/platzi-ml/vol:/home/juanpablo/work/vol -p 8889:8888 ds-tf-cpu:1.0 start-notebook.sh --NotebookApp.token=’’ Unable to find image ‘ds-tf:1.0’ locally C:\Program Files\Docker Toolbox\docker.exe: Error response from daemon: pull access denied for ararads-tf-cpu, repository dos not exist or may require 'docker login’ Ya inicie sesion con docker y sigue sin funcionar",
+	"replies": [
+		{
+			"user": "GOLLUM23",
+			"Comment": "Tiene que construir primero la imagen ararads-tf-cpu, revisa el video con detenimiento para que no te saltes ningún paso al momento de crear las imágenes de los diferentes contenedores que se utilizan."
+		}
+	]
+},
+{
+	"user": "luisgamadossantosleite",
+	"lesson": "https://platzi.com/clases/scikit/concepto/montar-un-ambiente-de-trabajo-pydata/dock-6/material/",
+	"comment": "Discupen, tengo WINDOWS 10 Home Single, y al intentar instalar Docker for Windows me marca un error Que puedo hacer yo en mi caso ?",
+	"replies": [
+		{
+			"user": "GOLLUM23",
+			"comment": "Comparte el error para poder ver como ayudarte."
+		}
+	]
+}
+{
+	"user": "Wah123",
+	"lesson": "https://platzi.com/clases/scikit/concepto/montar-un-ambiente-de-trabajo-pydata/dock-6/material/",
+	"comment": "Hola, tengo un problema, installe el docker toolbox en windows y una ves ya instalado escribo el comando docker run hello-world y me aparece el siguiente error. Manuel@Travis MINGW64 ~ $ docker run hello-world C:\Program Files\Docker Toolbox\docker.exe: error during connect: Post http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.35/containers/create: open //./pipe/docker_engine: El sistema no puede encontrar el archivo especificado. In the default daemon configuration on Windows, the docker client must be run elevated to connect. This error may also indicate that the docker daemon is not running. ‘C:\Program Files\Docker Toolbox\docker.exe run --help’. lo corro tanto como en docker quickstart terminal y en simbolo de sistema y en las dos me aparece este error.",
+	"replies": [
+		{
+			"user": "GOLLUM23",
+			"comment": "Instalaste docker toolbox pero el proceso o servicio de docker no esta corriendo aun y por esto no se puede conectar, verifica que el servicio este levantado y no debes tener problema."
+		}
+	]
+}
