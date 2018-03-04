@@ -1,15 +1,2 @@
-{
-	"user": "juansebastianreyes",
-	"lesson": "https://platzi.com/clases/postgresql/concepto/introduccion-a-postgresql/extra-como-instalar-postgresql-en-linux-windows-y-/material/",
-	"comment": "Buenas noches, me podrían ayudar me aparece este error y no se como solucionarlo psql: FATAL:  role "user" does not exist Graacias",
-	"replies": [
-		{
-			"user": "razpeitia_",
-			"comment": "Intenta ejecutar psql como el usuario postgres."
-		},
-		{
-			"user":"sandersgutierrez",
-			"comment": "Lo normal es cambiar de usuario en la terminal con el comando sudo su postgres -i, esto lo que hace es que te permite conectarte al servidor a una base de datos con el mismo nombre de usuario. Esto pasa por defecto. Sin embargo puedes optar por ejecutar el siguiente comando, user@host $ psql -d [dbname] -U [user] Antes de poder iniciar con [user] debes haberlo creado, y la base de datos debe también estar creada. Otra opción es crear una pase de datos con el mismo nombre de tu usuario de linux, de este modo solo tienes que escribir el comando psql y automáticamente te conectarás con tu usuario de linux y la base de datos con el mismo nombre."
-		}
-	]
-}
+{ "index" : { "_index" : "platzi", "_type" : "aportes", "_id" : "1" } }
+{"user": "juansebastianreyes","lesson": "https://platzi.com/clases/postgresql/concepto/introduccion-a-postgresql/extra-como-instalar-postgresql-en-linux-windows-y-/material","comment": "Buenas noches, me podrían ayudar me aparece este error y no se como solucionarlo psql: FATAL:  role \"user\" does not exist Graacias","replies": [{"user": "razpeitia_","comment": "Intenta ejecutar psql como el usuario postgres."},{"user":"sandersgutierrez","comment": "Lo normal es cambiar de usuario en la terminal con el comando sudo su postgres -i, esto lo que hace es que te permite conectarte al servidor a una base de datos con el mismo nombre de usuario. Esto pasa por defecto. Sin embargo puedes optar por ejecutar el siguiente comando, user@host $ psql -d [dbname] -U [user] Antes de poder iniciar con [user] debes haberlo creado, y la base de datos debe también estar creada. Otra opción es crear una pase de datos con el mismo nombre de tu usuario de linux, de este modo solo tienes que escribir el comando psql y automáticamente te conectarás con tu usuario de linux y la base de datos con el mismo nombre."}]}
