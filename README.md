@@ -1,7 +1,7 @@
 # ElasticSearch Guide
 ### Installing Elasticsearch
 #### Install Elasticsearch with Docker
-~~~bash
+~~~
 docker run -d -p 9200:9200 \
 -e "http.host=0.0.0.0" \
 -e "transport.host=127.0.0.1" \
@@ -18,7 +18,7 @@ Para obtener informacion de un indice
 `curl -XGET 'localhost:9200/platzi?pretty'`
 Para borrrar un indice
 `curl -XDELETE 'localhost:9200/platzi?pretty'`
-*Nota: el parametro pretty es para que la respuesta este identada*
+*Nota: el parametro pretty es para que la respuesta este identada, prueba sin `?pretty`*
 ### Indexing documents
 Para crear un documento se hace con PUT a la url de Elasticsearch + index + type + id, pero el id no es necesario si no se informa sera generado por Elasticsearch.
 
@@ -33,6 +33,7 @@ curl -XPUT 'localhost:9200/test/dummy/1?pretty' -H 'Content-Type: application/js
 ~~~
 ### Get documents
 para obtener un solo documento
+
 ~~~
 curl -XGET 'localhost:9200/test/dummy/1?pretty' -H 'Content-Type: application/json'
 ~~~
@@ -42,7 +43,7 @@ curl -XGET 'localhost:9200/test/dummy/_count?pretty'
 ~~~
 
 Elasticsearch no puede traer todos los documentos en un type por default solo trae 10
-Asi que si necesitas todos debes indicarle cuantos son una forma es preguntar primero
+Asi que si necesitas todos debes indicarle cuantos son, una forma de traer todos es preguntar primero
 cuantos hay con la query de arriba o indicando un size que de antemano se sabe que 
 sobre pasa el numero de documentos en el type
 Para obtener *n* documentos
@@ -56,9 +57,20 @@ curl -XGET 'localhost:9200/test/dummy/_search?size=100&pretty' -H 'Content-Type:
 *Nota: si se elimina `size=100&` solo traera 10*
 Lo mismo pero mas corto
 `curl -XGET 'localhost:9200/test/dummy/_search?size=100&pretty'`
-
+### Update documents
+Actualizar solo una parte del documento
+~~~
+curl -XPOST 'localhost:9200/test/dummy/1/_update?pretty' -H 'Content-Type: application/json' -d'
+{
+    "doc" : {
+        "last_name" : "Cruz"
+    }
+}
+'
+~~~
+Para actualizar todo el documento basta con repetir [query](#indexing-documents) pero con datos diferentes
 ### Delete documents
-Borrar un solo documento:
+Borrar un solo documento
 ~~~
 curl -XDELETE 'localhost:9200/test/dummy/1?pretty'
 ~~~
