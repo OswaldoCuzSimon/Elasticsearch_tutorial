@@ -114,6 +114,7 @@ Cargar datos de ejemplo a Elasticsearch:
 ~~~~
 curl -XPOST 'localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --data-binary @scikit_aportes.json
 curl -XPOST 'localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --data-binary @PostgreSQL_aportes.json
+curl -XPOST 'localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --data-binary @keyword_data.json
 ~~~~
 ### Update by query
 actualizara los documentos que tengan en el campo user el valor GOLLUM23, no actualizara si encuentra GOLLUM23 en el campo user dentro del arreglo de replies, por lo que solo encontrara una coincidencia

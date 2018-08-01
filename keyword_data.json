@@ -1,0 +1,12 @@
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "1" } }
+{ "key_field":"Frase a Encontrar" }
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "2" } }
+{ "key_field":"izquierda Frase a Encontrar"}
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "3" } }
+{ "key_field": "Frase a Encontrar derecha" }
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "4" } }
+{ "key_field":"frase a Encontrar"}
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "5" } }
+{ "key_field": "Frase a Encontrar Frase a Encontrar" }
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "6" } }
+{ "key_field": "Frase" }
