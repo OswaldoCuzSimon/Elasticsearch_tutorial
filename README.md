@@ -30,7 +30,21 @@ Listar todos los indices
 ~~~
 curl -X GET "localhost:9200/_cat/indices?v"
 ~~~
-
+Listar todos los types con total de documentos por index
+~~~
+curl -XGET "localhost:9200/platzi/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "aggs": {
+    "typesAgg": {
+      "terms": {
+        "field": "_type",
+        "size": 200
+      }
+    }
+  },
+  "size": 0
+}'
+~~~
 ### Indexing documents
 Para crear un documento se hace con PUT a la url de Elasticsearch + index + type + id, pero el id no es necesario si no se informa sera generado por Elasticsearch.
 
