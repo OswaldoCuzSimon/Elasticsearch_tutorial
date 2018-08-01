@@ -13,12 +13,24 @@ docker.elastic.co/elasticsearch/elasticsearch:6.2.2
 ### Index operations
 
 Para crear un indice
-`curl -XPUT 'localhost:9200/platzi?pretty'`
+~~~
+curl -XPUT 'localhost:9200/platzi?pretty'
+~~~
 Para obtener informacion de un indice
-`curl -XGET 'localhost:9200/platzi?pretty'`
+~~~
+curl -XGET 'localhost:9200/platzi?pretty'
+~~~
 Para borrrar un indice
-`curl -XDELETE 'localhost:9200/platzi?pretty'`
+~~~
+curl -XDELETE 'localhost:9200/platzi?pretty'
+~~~
 *Nota: el parametro pretty es para que la respuesta este identada, prueba sin `?pretty`*
+
+Listar todos los indices
+~~~
+curl -X GET "localhost:9200/_cat/indices?v"
+~~~
+
 ### Indexing documents
 Para crear un documento se hace con PUT a la url de Elasticsearch + index + type + id, pero el id no es necesario si no se informa sera generado por Elasticsearch.
 
@@ -44,7 +56,7 @@ curl -XGET 'localhost:9200/test/dummy/_count?pretty'
 
 Elasticsearch no puede traer todos los documentos en un type por default solo trae 10
 Asi que si necesitas todos debes indicarle cuantos son, una forma de traer todos es preguntar primero
-cuantos hay con la query de arriba o indicando un size que de antemano se sabe que 
+cuantos hay con la query de arriba o indicando un size que de antemano se sabe que
 sobre pasa el numero de documentos en el type
 Para obtener *n* documentos
 ~~~
@@ -103,5 +115,19 @@ Cargar datos de ejemplo a Elasticsearch:
 curl -XPOST 'localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --data-binary @scikit_aportes.json
 curl -XPOST 'localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --data-binary @PostgreSQL_aportes.json
 ~~~~
-
-
+### Update by query
+actualizara los documentos que tengan en el campo user el valor GOLLUM23, no actualizara si encuentra GOLLUM23 en el campo user dentro del arreglo de replies, por lo que solo encontrara una coincidencia
+~~~
+curl -X POST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' -d'
+{
+    "script": {
+        "inline": "ctx._source.user='\''GOLLUM23 2.0'\''"
+    },
+    "query": {
+        "match": {
+            "user": "GOLLUM23"
+        }
+    }
+}'
+~~~
+*Nota: `'\''` Es para escapar la comilla simple `'`*
