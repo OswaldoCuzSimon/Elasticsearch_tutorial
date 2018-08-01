@@ -118,7 +118,7 @@ curl -XPOST 'localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --
 ### Update by query
 actualizara los documentos que tengan en el campo user el valor GOLLUM23, no actualizara si encuentra GOLLUM23 en el campo user dentro del arreglo de replies, por lo que solo encontrara una coincidencia
 ~~~
-curl -X POST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' -d'
+curl -XPOST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' -d'
 {
     "script": {
         "inline": "ctx._source.user='\''GOLLUM23 2.0'\''"
@@ -131,3 +131,9 @@ curl -X POST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: a
 }'
 ~~~
 *Nota: `'\''` Es para escapar la comilla simple `'`*
+
+Para evitar escapar las comillas se puede mandar el parametro data mediante archivo.
+~~~
+curl -XPOST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' \
+--data-binary @update_by_query_example.json
+~~~

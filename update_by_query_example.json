@@ -1,0 +1,10 @@
+{
+    "script": {
+        "inline": "ctx._source.user='GOLLUM23 2.0'"
+    },
+    "query": {
+        "match": {
+            "user": "GOLLUM23"
+        }
+    }
+}
