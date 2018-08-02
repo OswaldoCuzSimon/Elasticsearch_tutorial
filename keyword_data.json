@@ -10,3 +10,7 @@
 { "key_field": "Frase a Encontrar Frase a Encontrar" }
 { "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "6" } }
 { "key_field": "Frase" }
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "7" } }
+{ "key_field":"frase a encontrar repetida"}
+{ "index" : { "_index" : "keys", "_type" : "_doc", "_id" : "8" } }
+{ "key_field":"frase a encontrar repetida"}

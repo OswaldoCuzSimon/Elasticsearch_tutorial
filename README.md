@@ -7,7 +7,7 @@ docker run -d -p 9200:9200 \
 -e "transport.host=127.0.0.1" \
 -e "xpack.security.enabled=false" \
 -e "network.bind_host=0.0.0.0" \
-docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+docker.elastic.co/elasticsearch/elasticsearch:6.3.0
 ~~~
 
 ### Index operations
@@ -151,4 +151,15 @@ Para evitar escapar las comillas se puede mandar el parametro data mediante arch
 ~~~
 curl -XPOST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' \
 --data-binary @update_by_query_example.json
+~~~
+
+### Queries with keyword_data
+~~~
+curl -XGET 'localhost:9200/keys/_search?size=100&pretty' -H 'Content-Type: application/json' -d'{
+  "query": {
+    "match": {
+      "key_field.keyword": "frase a encontrar repetida"
+    }
+  }
+}'
 ~~~
