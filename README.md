@@ -152,6 +152,65 @@ Para evitar escapar las comillas se puede mandar el parametro data mediante arch
 curl -XPOST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' \
 --data-binary @update_by_query_example.json
 ~~~
+### DSL
+Las consultas en Elasticsearch son por similaridad, por lo que regresara documentos si coinciden por lo menos en una palabra, ES maneja una calificacion que entre mayor sea mayor probabilidad de que es lo que se buscaba
+
+Query que busca el texto frase izquierda derecha, sobre el campo key_field
+~~~
+curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+    "query": {
+        "match" : {
+            "key_field" : {
+                "query" : "frase izquierda derecha"
+            }
+        }
+    }
+}'
+~~~
+Ejemplo de respuesta
+took: tiempo que tardo en responder
+timed_out: indica si hubo time timed_out
+_shards: documento con metadadta del cluster
+
+_shards.total: cantidad de nodos establecidos en el archivo de configuaracion del cluseter
+
+_hits: metadadta de los documentos encontrados
+
+_hits.total: cantidad de documentos que coincidieron con la query, No es el numero de resultados que vienen en la respuesta
+
+_hits.max_score: maxima puntuacion calculada
+
+_hits.hits: arreglo con los documentos encotrados
+~~~
+{
+  "took" : 5,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 10,
+    "successful" : 10,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 8,
+    "max_score" : 0.92512953,
+    "hits" : [
+      {
+        "_index" : "keys",
+        "_type" : "keys",
+        "_id" : "2",
+        "_score" : 0.92512953,
+        "_source" : {
+          "key_field" : "izquierda Frase a Encontrar"
+        }
+      }
+    ]
+  }
+}
+~~~
+el resultado son todos los documentos indexados porque todos contienen la palabra frase
+"minimum_should_match": 2
 
 ### Queries with keyword_data
 ~~~
