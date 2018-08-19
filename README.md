@@ -1,6 +1,6 @@
-# ElasticSearch Guide
+# Elasticsearch Guide
 ### Installing Elasticsearch
-#### Install Elasticsearch with Docker
+#### Run Elasticsearch with Docker
 ~~~
 docker run -d -p 9200:9200 \
 -e "http.host=0.0.0.0" \
@@ -24,8 +24,7 @@ Para borrrar un indice
 ~~~
 curl -XDELETE 'localhost:9200/platzi?pretty'
 ~~~
-*Nota: el parametro pretty es para que la respuesta este identada, prueba sin `?pretty`*
-
+*Nota: el parametro pretty es para que la respuesta este identada, prueba sin `?pretty`*<br>
 Listar todos los indices
 ~~~
 curl -X GET "localhost:9200/_cat/indices?v"
@@ -54,8 +53,7 @@ curl -XPUT 'localhost:9200/test/dummy/1?pretty' -H 'Content-Type: application/js
     "user" : "Oswaldo",
     "post_date" : "2018-11-15T14:12:12",
     "message" : "Hello platzi"
-}
-'
+}'
 ~~~
 ### Get documents
 para obtener un solo documento
@@ -67,17 +65,18 @@ Para saber cuantos documentos hay en un type
 ~~~
 curl -XGET 'localhost:9200/test/dummy/_count?pretty'
 ~~~
-
 Elasticsearch no puede traer todos los documentos en un type por default solo trae 10
 Asi que si necesitas todos debes indicarle cuantos son, una forma de traer todos es preguntar primero
 cuantos hay con la query de arriba o indicando un size que de antemano se sabe que
 sobre pasa el numero de documentos en el type
 Para obtener *n* documentos
+*Nota: Se puede sustituir _search por _count en cualquier query para obtener los totales y no los registros*<br>
 ~~~
 curl -XGET 'localhost:9200/test/dummy/_search?size=100&pretty' -H 'Content-Type: application/json' -d'
 {
-	"query":{
-	"match_all":{} }
+    "query": {
+        "match_all": {}
+    }
 }'
 ~~~
 *Nota: si se elimina `size=100&` solo traera 10*
@@ -88,8 +87,8 @@ Actualizar solo una parte del documento
 ~~~
 curl -XPOST 'localhost:9200/test/dummy/1/_update?pretty' -H 'Content-Type: application/json' -d'
 {
-    "doc" : {
-        "last_name" : "Cruz"
+    "doc": {
+        "last_name": "Cruz"
     }
 }
 '
@@ -152,9 +151,12 @@ Para evitar escapar las comillas se puede mandar el parametro data mediante arch
 curl -XPOST 'localhost:9200/platzi/_update_by_query?pretty' -H 'Content-Type: application/json' \
 --data-binary @update_by_query_example.json
 ~~~
-### DSL
+### Full Text Queries
 Las consultas en Elasticsearch son por similaridad, por lo que regresara documentos si coinciden por lo menos en una palabra, ES maneja una calificacion que entre mayor sea mayor probabilidad de que es lo que se buscaba
-
+`match_query` Forma estandar de realizar busquedas<br>
+`match_phrase` Se utiliza para buscar frases, encuentra coincidencias si las palabras usadas como query estan en el documento con el mismo orden<br>
+`match_phrase_prefix` Encuentra documentos que coincidan con algun prefijo<br>
+`multi_match` match_query busca en un solo campo multimatch busca en varios campos
 Query que busca el texto frase izquierda derecha, sobre el campo key_field
 ~~~
 curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
@@ -168,20 +170,15 @@ curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' 
     }
 }'
 ~~~
-Ejemplo de respuesta
-took: tiempo que tardo en responder
-timed_out: indica si hubo time timed_out
-_shards: documento con metadadta del cluster
-
-_shards.total: cantidad de nodos establecidos en el archivo de configuaracion del cluseter
-
-_hits: metadadta de los documentos encontrados
-
-_hits.total: cantidad de documentos que coincidieron con la query, No es el numero de resultados que vienen en la respuesta
-
-_hits.max_score: maxima puntuacion calculada
-
-_hits.hits: arreglo con los documentos encotrados
+Ejemplo de respuesta<br>
+`took` Tiempo que tardo en responder<br>
+`timed_out` Indica si hubo time out<br>
+`_shards` Documento con metadadta del cluster<br>
+`_shards.total` Cantidad de nodos establecidos en el archivo de configuaracion del cluseter<br>
+`_hits` Metadadta de los documentos encontrados<br>
+`_hits.total` Cantidad de documentos que coincidieron con la query. **No es el numero de resultados que vienen en la respuesta**<br>
+`_hits.max_score` Maxima puntuacion calculada<br>
+`_hits.hits` Arreglo con los documentos encotrados<br>
 ~~~
 {
   "took" : 5,
@@ -209,9 +206,21 @@ _hits.hits: arreglo con los documentos encotrados
   }
 }
 ~~~
-el resultado son todos los documentos indexados porque todos contienen la palabra frase
-"minimum_should_match": 2
+El resultado son todos los documentos indexados porque todos contienen la palabra *frase*
 
+~~~
+curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+    "query": {
+        "match_phrase_prefix" : {
+            "key_field" : {
+                "query" : "izqui",
+                "max_expansions" : 10
+            }
+        }
+    }
+}'
+~~~
 ### Queries with keyword_data
 ~~~
 curl -XGET 'localhost:9200/keys/_search?size=100&pretty' -H 'Content-Type: application/json' -d'{
