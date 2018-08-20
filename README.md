@@ -1,6 +1,6 @@
 # Elasticsearch Guide
-### Installing Elasticsearch
-#### Run Elasticsearch with Docker
+### Instalar Elasticsearch (Linux)
+#### Ejecutar Elasticsearch with Docker
 ~~~
 docker run -d -p 9200:9200 \
 -e "http.host=0.0.0.0" \
@@ -9,7 +9,12 @@ docker run -d -p 9200:9200 \
 -e "network.bind_host=0.0.0.0" \
 docker.elastic.co/elasticsearch/elasticsearch:6.3.0
 ~~~
-
+#### Ejecutar Elasticsearch nativo
+[Decargar Elasticsearch](https://www.elastic.co/downloads/elasticsearch)
+~~~
+tar -xvzf elasticsearch-6.3.0.tar.gz
+elasticsearch-6.3.0/bin/elasticsearch -d
+~~~
 ### Index operations
 
 Para crear un indice
